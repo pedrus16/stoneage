@@ -13,22 +13,24 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function preload ()
+function preload()
 {
-    this.load.image('logo', 'assets/logo.png');
+    this.load.spritesheet('man', 'assets/man.png', {
+        frameWidth: 64,
+        frameHeight: 64,
+        endFrame: 15
+    });
 }
 
-function create ()
+function create()
 {
-    var logo = this.add.image(400, 150, 'logo');
-
-    this.tweens.add({
-        targets: logo,
-        y: 450,
-        duration: 2000,
-        ease: 'Power2',
-        yoyo: true,
-        loop: -1
+    this.anims.create({
+        key: 'spin',
+        frames: this.anims.generateFrameNumbers('man', { start: 0, end: 15, first: 0 }),
+        frameRate: 15,
+        repeat: -1
     });
 
+    var man = this.add.sprite(400, 300, 'man');
+    man.anims.play('spin');
 }
