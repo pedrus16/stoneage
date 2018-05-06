@@ -134,7 +134,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>man.json</filename>
             </struct>
         </map>
         <key>multiPack</key>

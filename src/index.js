@@ -5,8 +5,8 @@ import { Game } from './game';
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
-    width: 800,
-    height: 640,
+    width: window.innerWidth,
+    height: window.innerHeight,
     scene: {
         preload: preload,
         create: create,
@@ -17,6 +17,7 @@ var config = {
 
 var phaserGame = new Phaser.Game(config);
 var game;
+var controls;
 
 function preload() {
     this.load.spritesheet('man', 'assets/man.png', {
@@ -29,8 +30,25 @@ function preload() {
 
 function create() {
     game = new Game(this);
+    this.cameras.main.setBounds(-1600, 0, 3200, 1600);
+    //  Camera controls
+    var cursors = this.input.keyboard.createCursorKeys();
+
+    var controlConfig = {
+        camera: this.cameras.main,
+        left: cursors.left,
+        right: cursors.right,
+        up: cursors.up,
+        down: cursors.down,
+        acceleration: 0.5,
+        drag: 0.01,
+        maxSpeed: 1.0
+    };
+
+    controls = new Phaser.Cameras.Controls.Smoothed(controlConfig);
 }
 
 function update(time, delta) {
+    controls.update(delta);
     game.update(delta);
 }
