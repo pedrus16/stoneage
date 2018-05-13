@@ -23,9 +23,10 @@ function preload() {
     this.load.spritesheet('man', 'assets/man.png', {
         frameWidth: 64,
         frameHeight: 64,
-        endFrame: 15
+        endFrame: 7
     });
     this.load.image('grass', 'assets/grass.png');
+    this.load.image('tree', 'assets/tree.png');
 }
 
 function create() {

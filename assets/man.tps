@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.6.3</string>
+        <string>4.7.0</string>
         <key>fileName</key>
         <string>C:/Users/pedrus/workshop/stoneage2/assets/man.tps</string>
         <key>autoSDSettings</key>
@@ -191,14 +191,6 @@
             <key type="filename">../../../../../tmp/0005.png</key>
             <key type="filename">../../../../../tmp/0006.png</key>
             <key type="filename">../../../../../tmp/0007.png</key>
-            <key type="filename">../../../../../tmp/0008.png</key>
-            <key type="filename">../../../../../tmp/0009.png</key>
-            <key type="filename">../../../../../tmp/0010.png</key>
-            <key type="filename">../../../../../tmp/0011.png</key>
-            <key type="filename">../../../../../tmp/0012.png</key>
-            <key type="filename">../../../../../tmp/0013.png</key>
-            <key type="filename">../../../../../tmp/0014.png</key>
-            <key type="filename">../../../../../tmp/0015.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -222,14 +214,6 @@
             <filename>../../../../../tmp/0005.png</filename>
             <filename>../../../../../tmp/0006.png</filename>
             <filename>../../../../../tmp/0007.png</filename>
-            <filename>../../../../../tmp/0008.png</filename>
-            <filename>../../../../../tmp/0009.png</filename>
-            <filename>../../../../../tmp/0010.png</filename>
-            <filename>../../../../../tmp/0011.png</filename>
-            <filename>../../../../../tmp/0012.png</filename>
-            <filename>../../../../../tmp/0013.png</filename>
-            <filename>../../../../../tmp/0014.png</filename>
-            <filename>../../../../../tmp/0015.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

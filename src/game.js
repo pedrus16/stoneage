@@ -1,5 +1,6 @@
-import { Entity } from './entity.js';
+import { Entity } from './entity';
 import { Terrain } from './terrain';
+import { Tree } from './tree';
 
 export class Game {
 
@@ -7,7 +8,10 @@ export class Game {
 		new Terrain(game, 20, 20);
 		this.entities = [];
 		for (let i = 0; i < 10; i++) {
-			this.entities.push(new Entity(game, Math.floor(Math.random() * 20), Math.floor(Math.random() * 20)));
+			this.entities.push(new Entity(game, Math.random() * 20, Math.random() * 20));
+		}
+		for (let i = 0; i < 10; i++) {
+			this.entities.push(new Tree(game, Math.floor(Math.random() * 20) + 0.5, Math.floor(Math.random() * 20) + 0.5));
 		}
 	}
 
