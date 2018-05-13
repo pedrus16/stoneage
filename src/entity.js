@@ -23,6 +23,7 @@ export class Entity {
 		const pos = toIso(this.x, this.y);
 		this.sprite = game.add.sprite(pos[0], pos[1], 'man', 0);
 		this.sprite.setOrigin(0.5, 0.875);
+		this.sprite.depth = pos[1];
 		this.waiting = false;
 
 		this.currentDest = this.getNextDest();
@@ -55,11 +56,13 @@ export class Entity {
 		if (this.sprite) {
 			const pos = toIso(this.x, this.y);
 			this.sprite.setPosition(pos[0], pos[1]);
+			this.sprite.depth = pos[1];
+			// console.log(this.sprite.depth);
 		}
 	}
 
 	getNextDest() {
-		return [Math.random() * 20, Math.random() * 20];
+		return [Math.random() * 100, Math.random() * 100];
 	}
 
 }
