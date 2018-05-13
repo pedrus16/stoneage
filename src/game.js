@@ -1,19 +1,19 @@
-import { Entity } from './entity';
+import { Man } from './man';
 import { Terrain } from './terrain';
 import { Tree } from './tree';
+import { Stock } from './stock';
+import { WoodPile } from './wood-pile';
 
 export class Game {
 
 	constructor(game) {
-		const terrainSize = 100;
-		new Terrain(game, terrainSize, terrainSize);
+		const terrainSize = 40;
+		this.terrain = new Terrain(game, terrainSize, terrainSize);
 		this.entities = [];
-		for (let i = 0; i < 100; i++) {
-			this.entities.push(new Entity(game, Math.random() * terrainSize, Math.random() * terrainSize));
+		for (let i = 0; i < 10; i++) {
+			this.entities.push(new Man(game, Math.random() * terrainSize, Math.random() * terrainSize));
 		}
-		for (let i = 0; i < 100; i++) {
-			this.entities.push(new Tree(game, Math.floor(Math.random() * terrainSize) + 0.5, Math.floor(Math.random() * terrainSize) + 0.5));
-		}
+		this.entities.push(new Stock(game, 10, 10));
 	}
 
 	update(delta) {

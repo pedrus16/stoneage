@@ -12,7 +12,7 @@ var config = {
         create: create,
         update: update
     },
-    transparent: true
+    transparent: false
 };
 
 var phaserGame = new Phaser.Game(config);
@@ -27,6 +27,12 @@ function preload() {
     });
     this.load.image('grass', 'assets/grass.png');
     this.load.image('tree', 'assets/tree.png');
+    this.load.image('stock', 'assets/stock.png');
+    this.load.spritesheet('logPile', 'assets/log-pile.png', {
+        frameWidth: 128,
+        frameHeight: 128,
+        endFrame: 15
+    });
 }
 
 function create() {
