@@ -13,9 +13,12 @@ export class Terrain {
 		}
 
 		this.trees = [];
-		for (let i = 0; i < 10; i++) {
-			this.trees.push(new Tree(game, Math.floor(Math.random() * width), Math.floor(Math.random() * height)));
-		}
+		this.trees.push(new Tree(game, 20, 20));
+		this.trees.push(new Tree(game, 22, 20));
+		this.trees.push(new Tree(game, 24, 20));
+		// for (let i = 0; i < 10; i++) {
+		// 	this.trees.push(new Tree(game, Math.floor(Math.random() * width), Math.floor(Math.random() * height)));
+		// }
 	}
 
 }

@@ -14,11 +14,4 @@ export class Stock extends Entity {
 		this.slots = [null, null, null, null, null, null, null, null, null];
 	}
 
-	addResource(type) {
-		const index = this.slots.findIndex((pile) => !pile || !pile.isFull());
-		if (index !== -1) {
-
-		}
-	}
-
 }

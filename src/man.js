@@ -3,14 +3,15 @@ import { toIso } from './utils';
 
 export class Man extends Entity {
 
-	constructor(game, x, y) {
-		super(game, x , y);
+	constructor(game, x, y, terrain) {
+		super(game, x, y);
 		const pos = toIso(this.x, this.y);
 		this.sprite.destroy();
 		this.sprite = game.add.sprite(pos[0], pos[1], 'man', 0);
 		this.sprite.setOrigin(0.5, 0.875);
 		this.sprite.depth = pos[1];
 		this.waiting = false;
+		this.terrain = terrain;
 		this.currentDest = this.getNextDest();
 	}
 
@@ -27,18 +28,16 @@ export class Man extends Entity {
 		} else {
 			this.x = this.currentDest[0];
 			this.y = this.currentDest[1];
-			if (!this.waiting) {
-				this.waiting = true;
-				setTimeout(() => {
-					this.currentDest = this.getNextDest();	
-					this.waiting = false;
-				}, 1000 + Math.random() * 1000);	
-			}
 		}
 	}
 
 	getNextDest() {
-		return [Math.random() * 25, Math.random() * 25];
+		const tree = this.terrain.trees[0];
+		const delta = [tree.x - this.x, tree.y - this.y];
+		const dist = Math.sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
+		const dir = [delta[0] / dist, delta[1] / dist];
+
+		return [this.x + dir[0] * (dist - 1), this.y + dir[1] * (dist - 1)];
 	}
 
 }

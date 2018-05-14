@@ -10,10 +10,11 @@ export class Game {
 		const terrainSize = 40;
 		this.terrain = new Terrain(game, terrainSize, terrainSize);
 		this.entities = [];
-		for (let i = 0; i < 10; i++) {
-			this.entities.push(new Man(game, Math.random() * terrainSize, Math.random() * terrainSize));
-		}
-		this.entities.push(new Stock(game, 10, 10));
+		// for (let i = 0; i < 10; i++) {
+		// 	this.entities.push(new Man(game, Math.random() * terrainSize, Math.random() * terrainSize, this.terrain));
+		// }
+		this.entities.push(new Man(game, 20, 15, this.terrain));
+		// this.entities.push(new Stock(game, 10, 10));
 	}
 
 	update(delta) {
