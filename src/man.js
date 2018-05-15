@@ -1,43 +1,97 @@
 import { Entity } from './entity';
 import { toIso } from './utils';
+import { WoodPile } from './wood-pile';
+
+const GATHER_SPEED = 1000;
 
 export class Man extends Entity {
+
+	set angle(angle) {
+		this._angle = angle;
+		if (!this.sprite) { return; }
+		this.sprite.setFrame(getFrameFromAngle(this.angle));
+	}
+	get angle() { return this._angle; }
 
 	constructor(game, x, y, terrain) {
 		super(game, x, y);
 		const pos = toIso(this.x, this.y);
 		this.sprite.destroy();
-		this.sprite = game.add.sprite(pos[0], pos[1], 'man', 0);
+		this.sprite = game.phaserGame.add.sprite(pos[0], pos[1], 'man', 0);
 		this.sprite.setOrigin(0.5, 0.875);
 		this.sprite.depth = pos[1];
-		this.waiting = false;
 		this.terrain = terrain;
-		this.currentDest = this.getNextDest();
+		this.gatherTime = 0;
+		this.type = 'man';
+		this.target = null;
 	}
 
 	update(delta) {
-		const deltaDist = [this.currentDest[0] - this.x, this.currentDest[1] - this.y];
-		const dist = Math.sqrt(deltaDist[0] * deltaDist[0] + deltaDist[1] * deltaDist[1]);
-		const dir = [deltaDist[0] / dist, deltaDist[1] / dist];
-		const speed = 3 * delta / 1000;
-		this.angle = Math.atan2(dir[1], dir[0]);
-		if (dist > speed) {
-			this.x += dir[0] * speed;
-			this.y += dir[1] * speed;
-			this.sprite.setFrame(getFrameFromAngle(this.angle));
+		if (this.resource) {
+			this.dropResourceAt(this.x + 1, this.y);
+		}
+		if (this.target) {
+			this.moveToTarget(delta);
+			const deltaDist = [this.target.x - this.x, this.target.y - this.y];
+			const dist = Math.sqrt(deltaDist[0] * deltaDist[0] + deltaDist[1] * deltaDist[1]);
+			if (dist <= 1 && !this.resource) {
+				this.cutTree(this.target, delta);
+			}
 		} else {
-			this.x = this.currentDest[0];
-			this.y = this.currentDest[1];
+			this.findNextTree();
 		}
 	}
 
-	getNextDest() {
-		const tree = this.terrain.trees[0];
-		const delta = [tree.x - this.x, tree.y - this.y];
-		const dist = Math.sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
-		const dir = [delta[0] / dist, delta[1] / dist];
+	findNextTree() {
+		this.target = this.game.findClosestEntity(this.x, this.y, 'tree');
+	}
 
-		return [this.x + dir[0] * (dist - 1), this.y + dir[1] * (dist - 1)];
+	moveTo(x, y, delta) {
+		const deltaDist = [x - this.x, y - this.y];
+		const dist = Math.sqrt(deltaDist[0] * deltaDist[0] + deltaDist[1] * deltaDist[1]);
+		const dir = [deltaDist[0] / dist, deltaDist[1] / dist];
+		const speed = 3 * delta * 0.001;
+		if (dist > speed) {
+			this.x += dir[0] * speed;
+			this.y += dir[1] * speed;
+			this.angle = Math.atan2(dir[1], dir[0]);
+		} else {
+			this.x = x;
+			this.y = y;
+		}
+	}
+
+	moveToTarget(delta) {
+		const deltaDist = [this.target.x - this.x, this.target.y - this.y];
+		const dist = Math.sqrt(deltaDist[0] * deltaDist[0] + deltaDist[1] * deltaDist[1]);
+		const dir = [deltaDist[0] / dist, deltaDist[1] / dist];
+		this.moveTo(this.x + dir[0] * (dist - 0.9), this.y + dir[1] * (dist - 0.9), delta);
+		return dist;
+	}
+
+	cutTree(tree, delta) {
+		if (tree.wood <= 0) {
+			this.target = null;
+			return;
+		}
+		this.gatherTime += delta;
+		if (this.gatherTime >= GATHER_SPEED) {
+			tree.wood -= 1;
+			this.resource = 'wood';
+			this.gatherTime = 0;
+		}
+	}
+
+	dropResourceAt(x, y) {
+		x = Math.floor(x);
+		y = Math.floor(y);
+		const pile = this.game.findEntityAt(x, y, 'woodPile');
+		if (pile) {
+			pile.amount += 1;
+		} else {
+			this.game.entities.push(new WoodPile(this.game, x, y));
+		}
+		this.resource = null;
 	}
 
 }

@@ -8,7 +8,7 @@ export class Stock extends Entity {
 		super(game, x , y);
 		const pos = toIso(this.x, this.y);
 		this.sprite.destroy();
-		this.sprite = game.add.sprite(pos[0], pos[1], 'stock', 0);
+		this.sprite = game.phaserGame.add.sprite(pos[0], pos[1], 'stock', 0);
 		this.sprite.setOrigin(0.5, 0);
 		this.sprite.depth = pos[1];
 		this.slots = [null, null, null, null, null, null, null, null, null];
