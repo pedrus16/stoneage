@@ -14,12 +14,13 @@ export class Game {
 		// for (let i = 0; i < 10; i++) {
 		// 	this.entities.push(new Man(this, Math.random() * terrainSize, Math.random() * terrainSize, this.terrain));
 		// }
-		this.entities.push(new Man(this, 20, 15, this.terrain));
+		this.entities.push(new Man(this, 20.5, 15.5, this.terrain));
 		this.entities = this.entities.concat(this.terrain.trees);
 		// this.entities.push(new Stock(this, 10, 10));
 	}
 
 	update(delta) {
+		this.terrain.update();
 		this.entities = this.entities.filter((entity) => !entity.destroyed);
 		this.entities.forEach((entity) => {
 			entity.update(delta);

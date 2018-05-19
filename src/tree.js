@@ -7,6 +7,7 @@ export class Tree extends Entity {
 		this._wood = wood;
 		if (this._wood <= 0) {
 			this.destroy();
+			this.onDestroy();
 		}
 	}
 	get wood() { return this._wood; }
@@ -18,8 +19,9 @@ export class Tree extends Entity {
 		this.sprite = game.phaserGame.add.sprite(pos[0], pos[1], 'tree', 0);
 		this.sprite.setOrigin(0.5, 0.875);
 		this.sprite.depth = pos[1];
-		this._wood = 4;
+		this._wood = 3;
 		this.type = 'tree';
+		this.onDestroy = () => {};
 	}
 
 }
