@@ -2,7 +2,7 @@ import { Entity } from './entity';
 import { toIso } from './utils';
 import { WoodPile } from './wood-pile';
 
-const WALK_SPEED = 5;
+const WALK_SPEED = 2;
 const GATHER_TIME = 200;
 
 export class Man extends Entity {
@@ -67,13 +67,6 @@ export class Man extends Entity {
 		const tile = { x: Math.floor(target.x), y: Math.floor(target.y) };
 		const path = this.terrain.findPath(Math.floor(this.x), Math.floor(this.y), tile.x, tile.y);
 		this.navNode = path.length >= 2 ? { x: path[1][0], y: path[1][1] } : null;
-	}
-
-	findClosestTile(x, y) {
-		const deltaDist = [x - this.x, y - this.y];
-		const dist = Math.sqrt(deltaDist[0] * deltaDist[0] + deltaDist[1] * deltaDist[1]);
-		const dir = [deltaDist[0] / dist, deltaDist[1] / dist];
-		return { x: Math.floor(this.x + dir[0] * (dist - 1)), y: Math.floor(this.y + dir[1] * (dist - 1)) }
 	}
 
 	moveTo(x, y, delta) {

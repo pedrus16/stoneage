@@ -33,6 +33,7 @@ function preload() {
         frameHeight: 128,
         endFrame: 15
     });
+    this.load.image('hut', 'assets/hut.png');
 }
 
 function create() {
